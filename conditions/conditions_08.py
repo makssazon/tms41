@@ -5,7 +5,8 @@
 
 mail = input("enter email - ")
 
-if 'gmail.com' in mail:
+index = mail.rindex('@')
+if '@gmail.com' in mail[index:]:
     print(mail)
 else:
-    print("DOMAIN NAME is not supported")
+    print("DOMAIN NAME is not supported - ", mail)

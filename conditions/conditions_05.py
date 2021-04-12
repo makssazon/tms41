@@ -3,7 +3,7 @@
 
 my_num = input('enter number - ')
 
-if my_num in "0123456789":
+if my_num.isdigit():
     print(float(my_num) ** 3)
 else:
     print("wrong input")
