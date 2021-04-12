@@ -43,14 +43,23 @@ pupils = [
 
 ]
 
-result = []
+# result = []
+# for pupil in pupils:
+#     total = 0
+#     for i, values in enumerate(pupil.values()):
+#         if i > 1:
+#             total += values
+#     avg = total / 3
+#     print(f'avg of {pupil["firstname"]} is {avg}')
+#     if avg > 4:
+#         result.append(pupil["firstname"])
+# print(f'names best pupils with avg > 4  - {", ".join(result)}')
+
+best_of_the_best = []
 for pupil in pupils:
-    total = 0
-    for i, values in enumerate(pupil.values()):
-        if i > 1:
-            total += values
+    total = pupil['physics'] + pupil['informatics'] + pupil['history']
     avg = total / 3
-    print(f'avg of {pupil["firstname"]} is {avg}')
     if avg > 4:
-        result.append(pupil["firstname"])
-print(f'names best pupils with avg > 4  - {", ".join(result)}')
+        best_of_the_best.append(pupil["firstname"])
+print(f'names best pupils with avg > 4  - {", ".join(best_of_the_best)}')
+print(best_of_the_best)

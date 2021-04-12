@@ -7,6 +7,15 @@ list_2 = list_num.copy()
 print(list_num)
 
 result = 0
+len_list = len(list_num)
+while len_list:
+    num = list_num[len_list - 1]
+    if num > 10:
+        result += num
+    len_list -= 1
+print(result)
+
+result = 0
 while list_num:
     num = list_num.pop()
     if num > 10:

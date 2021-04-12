@@ -5,12 +5,12 @@
 from random import randint
 
 n = int(input("enter n - "))
+
+massiv = [[randint(1, 10) for j in range(n)] for i in range(n)]
+print(massiv)
 result = 0
-for i in range(n):
-    for j in range(n):
-        num = randint(1, 10)
-        print(num, end=' ')
-        if not num % 3:
-            result += num
-    print()
+for row in massiv:
+    for element in row:
+        if not element % 3:
+            result += element
 print("Найти сумму всех элементов матрицы, которые кратны 3 - ", result)

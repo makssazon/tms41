@@ -12,17 +12,17 @@ print(massiv)
 
 len_mas = 0
 result = 0
-for i in massiv:
-    for j in i:
-        result += j
+for row in massiv:
+    for element in row:
+        result += element
         len_mas += 1
 avg = result / len_mas
 print(f"summa = {result}, len - {len_mas}, avg = {avg}")
 
 result_2 = 0
 
-for i, j in enumerate(massiv):
-    for i_1, j_1 in enumerate(j):
-        if not (i + i_1) % 2 and j_1 > avg:
+for i, row in enumerate(massiv):
+    for j, element in enumerate(row):
+        if not (i + j) % 2 and element > avg:
             result_2 += 1
 print('itog = ', result_2)

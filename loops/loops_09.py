@@ -3,8 +3,9 @@
 from random import randint
 
 n = int(input("enter n - "))
-
+matrix = []
 for i in range(n):
+    matrix.append([])
     for j in range(n):
-        print(randint(1, 9), end=' ')
-    print()
+        matrix[i].append(randint(1, 9))
+print(matrix)
