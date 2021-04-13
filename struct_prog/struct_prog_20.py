@@ -8,8 +8,8 @@ print(arr, len(arr))
 max_num = max(arr)
 print(max_num)
 
-for j, i in enumerate(arr):
-    if not i % 2:
-        arr[j] = max_num
+for i, element in enumerate(arr):
+    if not element % 2:
+        arr[i] = max_num
 
 print(arr)

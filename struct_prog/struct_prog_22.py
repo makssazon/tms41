@@ -3,16 +3,16 @@
 # [02-4.2-ML22]
 from random import randint
 
-matrix = [[randint(1, 10) for j in range(4)] for i in range(4)]
-for i in matrix:
-    print(i)
+matrix = [[randint(1, 10) for element in range(4)] for row in range(4)]
+for row in matrix:
+    print(row)
 
-for j, i in enumerate(matrix):
-    max_digit = max(i)
-    index_max = i.index(max_digit)
-    if j != index_max:
-        i[j], i[index_max] = i[index_max], i[j]
+for i, row in enumerate(matrix):
+    max_digit = max(row)
+    index_max = row.index(max_digit)
+    if i != index_max:
+        row[i], row[index_max] = row[index_max], row[i]
 
-print('result')
-for i in matrix:
-    print(i)
+print('result: ')
+for row in matrix:
+    print(row)

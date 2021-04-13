@@ -4,12 +4,12 @@
 
 
 dict = {}
-for i in range(200, 300):
+for digit in range(200, 300):
     result_sum = 0
-    for j in range(1, i - 1):
-        if i % j == 0:
-            result_sum += j
-    dict[i] = result_sum
+    for i in range(1, digit - 1):
+        if digit % i == 0:
+            result_sum += i
+    dict[digit] = result_sum
 
 dict_result = {}
 for key in dict.keys():
