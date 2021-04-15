@@ -10,3 +10,9 @@ if '@gmail.com' in mail[index:]:
     print(mail)
 else:
     print("DOMAIN NAME is not supported - ", mail)
+
+arr = mail.split('@')
+if 'gmail.com' in arr[-1]:
+    print(mail)
+else:
+    print("DOMAIN NAME is not supported - ", mail)
