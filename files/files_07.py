@@ -8,6 +8,7 @@ print(matrix, type(matrix))
 
 with open('text_07.txt', 'w') as file:
     data = json.dumps(matrix)
+    print(type(data))
     file.write(data)
 
 with open('text_07.txt') as file:

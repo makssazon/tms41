@@ -42,8 +42,6 @@ with open('test_10_result.csv', 'r') as file:
     csvreader = csv.DictReader(file)
     for row in csvreader:
         print(row)
-    # rows = [row for row in csvreader]
-    # print(rows)
 
 with open('test_10_result.csv', 'r') as file:
     csvreader = csv.reader(file)
