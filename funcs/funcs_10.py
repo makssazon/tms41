@@ -1,10 +1,15 @@
 # Рассчитать значение х определив и
 # использовав необходимую функции. [02-5.1-BL01]
 
+
+def element(arg):
+    return (arg ** (1 / 2) + arg) / 2
+
+
 def func(*args):
     result = 0
     for arg in args:
-        result += (arg ** (1 / 2) + arg) / 2
+        result += element(arg)
     return result
 
 

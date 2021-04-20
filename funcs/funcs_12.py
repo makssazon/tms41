@@ -4,13 +4,17 @@
 # ных чисел. С помощью функции is_power_n найти количество степеней чис-
 # ла N в данном наборе.
 # [01-11.2-Proc27]
-import math
 
 
 def my_func(k: int, n: int) -> bool:
-    result = math.log(k, n)
-    print(result)
-    return True if int(result) == result else False
+    i = 0
+    while True:
+        n_in_i = n ** i
+        if k == n_in_i:
+            return True
+        elif k < n_in_i:
+            return False
+        i += 1
 
 
 def main():

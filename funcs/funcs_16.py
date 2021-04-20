@@ -3,14 +3,20 @@
 # направо и справа налево. (Определить функцию,
 # позволяющую распознавать слова палиндромы.)[03-10.32]
 
-def func(word: str) -> bool:
-    return True if word[::-1].lower() == word.lower() else False
+def func_polindrom(word: str) -> bool:
+    return word[::-1].lower() == word.lower()
+
+
+def func(arr: list) -> bool:
+    for word in arr:
+        if func_polindrom(word):
+            return True
+    return False
 
 
 def main():
     arr = ['alla', "Вадим", "абраарбА"]
-    for i in arr:
-        print(f'{i} polindrom ! - {func(i)}')
+    print(func(arr))
 
 
 if __name__ == '__main__':

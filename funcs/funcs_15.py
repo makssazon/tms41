@@ -13,14 +13,13 @@ def fact2(num):
     else:
         for i in range(2, num + 1, 2):
             result *= i
-    print(f'двойной факториал {num} = {result}')
     return result
 
 
 def main():
     arr = [2, 3, 4, 5, 6]
     for i in arr:
-        fact2(i)
+        print(fact2(i))
 
 
 if __name__ == '__main__':

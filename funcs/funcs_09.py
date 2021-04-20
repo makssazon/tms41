@@ -10,7 +10,10 @@ def func(arr):
     dict = {}
     for i in arr:
         if not dict.get(i):
-            dict[i] = arr.count(i)
+            dict[i] = 1
+        else:
+            dict[i] += 1
+
     return dict
 
 
