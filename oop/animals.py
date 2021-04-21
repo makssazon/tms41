@@ -6,6 +6,12 @@
 
 
 class Pet:
+    def __init__(self, name, age, master, weight, height):
+        self.name = name
+        self.age = age
+        self.master = master
+        self.weight = weight
+        self.height = height
 
     def run(self):
         print('Run!')
@@ -19,56 +25,47 @@ class Pet:
     def sleep(self):
         print('Sleep!')
 
+    def change_weight(self, arg=None):
+        if arg:
+            self.weight += arg
+        else:
+            self.weight += 0.2
+
+    def change_height(self, arg=None):
+        if arg:
+            self.height += arg
+        else:
+            self.height += 0.2
+
 
 class Dog(Pet):
-    def __init__(self, name, age, master):
-        self.name = name
-        self.age = age
-        self.master = master
 
     def bark(self):
         print('Bark!')
 
 
 class Cat(Pet):
-    def __init__(self, name, age, master):
-        self.name = name
-        self.age = age
-        self.master = master
 
     def meow(self):
         print('Meow!')
 
 
 class Parrot(Pet):
-    def __init__(self, name, age, master):
-        self.name = name
-        self.age = age
-        self.master = master
 
     def fly(self):
-        print('Fly!')
+        if self.weight > 0.1:
+            print('This parrot can not fly')
+        else:
+            print('Fly!')
 
 
-dog = Dog('rex', 10, 'igar')
+dog = Parrot('rex', 10, 'igar', 0.1, 0.5)
 dog.jump()
 dog.birthday()
 print(dog.age)
 dog.sleep()
-dog.bark()
+dog.fly()
 dog.run()
-
-cat = Cat('murka', 5, 'Valera')
-cat.run()
-cat.sleep()
-cat.jump()
-cat.birthday()
-print(cat.age)
-cat.meow()
-
-parrot = Parrot('gosha', 3, 'Alla')
-parrot.run()
-parrot.jump()
-parrot.sleep()
-parrot.birthday()
-parrot.fly()
+dog.change_height()
+dog.change_weight(1)
+print(dog.height, dog.weight)
