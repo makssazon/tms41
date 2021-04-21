@@ -52,6 +52,12 @@ class Cat(Pet):
 
 class Parrot(Pet):
 
+    def change_weight(self, arg=None):
+        if arg:
+            self.weight += arg
+        else:
+            self.weight += 0.05
+
     def fly(self):
         if self.weight > 0.1:
             print('This parrot can not fly')
@@ -59,13 +65,13 @@ class Parrot(Pet):
             print('Fly!')
 
 
-dog = Parrot('rex', 10, 'igar', 0.1, 0.5)
-dog.jump()
-dog.birthday()
-print(dog.age)
-dog.sleep()
-dog.fly()
-dog.run()
-dog.change_height()
-dog.change_weight(1)
-print(dog.height, dog.weight)
+parrot = Parrot('rex', 10, 'igar', 0.03, 0.5)
+parrot.jump()
+parrot.birthday()
+print(parrot.age)
+parrot.sleep()
+parrot.fly()
+parrot.run()
+parrot.change_height(1)
+parrot.change_weight()
+print(parrot.height, parrot.weight)
