@@ -16,8 +16,8 @@ class Pet:
     def run(self):
         print('Run!')
 
-    def jump(self):
-        print('jump!')
+    def jump(self, height):
+        print(f'jump {height} meters')
 
     def birthday(self):
         self.age += 1
@@ -43,11 +43,23 @@ class Dog(Pet):
     def bark(self):
         print('Bark!')
 
+    def jump(self, height):
+        if height > 0.5:
+            print('Dogs can not jump so hight')
+        else:
+            super().jump(height)
+
 
 class Cat(Pet):
 
     def meow(self):
         print('Meow!')
+
+    def jump(self, height):
+        if height > 2:
+            print('Dogs can not jump so hight')
+        else:
+            super().jump(height)
 
 
 class Parrot(Pet):
@@ -64,9 +76,15 @@ class Parrot(Pet):
         else:
             print('Fly!')
 
+    def jump(self, height):
+        if height > 0.05:
+            print('Parrots can not jump so hight')
+        else:
+            super().jump(height)
+
 
 parrot = Parrot('rex', 10, 'igar', 0.03, 0.5)
-parrot.jump()
+parrot.jump(1)
 parrot.birthday()
 print(parrot.age)
 parrot.sleep()
