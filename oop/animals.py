@@ -92,6 +92,20 @@ class Parrot(Pet):
         print('Fiu!')
 
 
+class Horse(Pet):
+    def voice(self):
+        print('Igo-go')
+
+
+class Donkey(Pet):
+    def voice(self):
+        print('Ia-ia-ia')
+
+
+class Mule(Donkey, Horse):
+    pass
+
+
 parrot = Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')
 parrot.jump(1)
 parrot.birthday()
@@ -112,7 +126,8 @@ def voice_animals(arr):
 def main():
     arr = [Dog('rex', 10, 'igar', 2, 0.5),
            Cat('rex', 10, 'igar', 1, 0.2),
-           Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')]
+           Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron'),
+           Mule('rex', 10, 'igar', 0.03, 0.5)]
     voice_animals(arr)
 
 
