@@ -13,6 +13,20 @@ class Pet:
         self.weight = weight
         self.height = height
 
+    def __eq__(self, other):
+        if (type(self), self.age, self.height, self.weight) \
+                == (type(other), other.age, other.height, other.weight):
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):
+        if not (type(self), self.age, self.height, self.weight) \
+               == (type(other), other.age, other.height, other.weight):
+            return True
+        else:
+            return False
+
     def run(self):
         print('Run!')
 
@@ -116,6 +130,7 @@ parrot.run()
 parrot.change_height(1)
 parrot.change_weight()
 print(parrot.height, parrot.weight, parrot.species)
+print()
 
 
 def voice_animals(arr):
@@ -133,3 +148,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 0.5))
+print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 0.5))
