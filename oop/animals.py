@@ -6,12 +6,15 @@
 
 
 class Pet:
+    counter = 0
+
     def __init__(self, name, age, master, weight, height):
         self.name = name
         self.age = age
         self.master = master
         self.weight = weight
         self.height = height
+        Pet.counter += 1
 
     def __eq__(self, other):
         return (type(self), self.age, self.height, self.weight) \
@@ -114,19 +117,6 @@ class Mule(Donkey, Horse):
     pass
 
 
-parrot = Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')
-parrot.jump(1)
-parrot.birthday()
-print(parrot.age)
-parrot.sleep()
-parrot.fly()
-parrot.run()
-parrot.change_height(1)
-parrot.change_weight()
-print(parrot.height, parrot.weight, parrot.species)
-print()
-
-
 def voice_animals(arr):
     for animal in arr:
         animal.voice()
@@ -143,5 +133,18 @@ def main():
 if __name__ == '__main__':
     main()
 
+parrot = Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')
+parrot.jump(1)
+parrot.birthday()
+print(parrot.age)
+parrot.sleep()
+parrot.fly()
+parrot.run()
+parrot.change_height(1)
+parrot.change_weight()
+print(parrot.height, parrot.weight, parrot.species)
+print()
+
 print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 1))
 print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 1))
+print(Pet.counter)
