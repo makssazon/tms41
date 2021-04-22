@@ -6,7 +6,7 @@
 
 
 class Pet:
-    counter = 0
+    __counter = 0
 
     def __init__(self, name, age, master, weight, height):
         self.name = name
@@ -14,7 +14,11 @@ class Pet:
         self.master = master
         self.weight = weight
         self.height = height
-        Pet.counter += 1
+        Pet.__counter += 1
+
+    @classmethod
+    def get_counter(cls):
+        return cls.__counter
 
     def __eq__(self, other):
         return (type(self), self.age, self.height, self.weight) \
@@ -147,4 +151,4 @@ print()
 
 print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 1))
 print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 1))
-print(Pet.counter)
+print(Pet.get_counter())
