@@ -14,18 +14,12 @@ class Pet:
         self.height = height
 
     def __eq__(self, other):
-        if (type(self), self.age, self.height, self.weight) \
-                == (type(other), other.age, other.height, other.weight):
-            return True
-        else:
-            return False
+        return (type(self), self.age, self.height, self.weight) \
+               == (type(other), other.age, other.height, other.weight)
 
     def __ne__(self, other):
-        if not (type(self), self.age, self.height, self.weight) \
-               == (type(other), other.age, other.height, other.weight):
-            return True
-        else:
-            return False
+        return not (type(self), self.age, self.height, self.weight) \
+                   == (type(other), other.age, other.height, other.weight)
 
     def run(self):
         print('Run!')
@@ -149,5 +143,5 @@ def main():
 if __name__ == '__main__':
     main()
 
-print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 0.5))
-print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 0.5))
+print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 1))
+print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 1))
