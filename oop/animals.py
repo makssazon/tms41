@@ -25,6 +25,9 @@ class Pet:
     def sleep(self):
         print('Sleep!')
 
+    def voice(self):
+        pass
+
     def change_weight(self, arg=None):
         if arg:
             self.weight += arg
@@ -40,7 +43,7 @@ class Pet:
 
 class Dog(Pet):
 
-    def bark(self):
+    def voice(self):
         print('Bark!')
 
     def jump(self, height):
@@ -52,7 +55,7 @@ class Dog(Pet):
 
 class Cat(Pet):
 
-    def meow(self):
+    def voice(self):
         print('Meow!')
 
     def jump(self, height):
@@ -85,6 +88,9 @@ class Parrot(Pet):
         else:
             super().jump(height)
 
+    def voice(self):
+        print('Fiu!')
+
 
 parrot = Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')
 parrot.jump(1)
@@ -96,3 +102,19 @@ parrot.run()
 parrot.change_height(1)
 parrot.change_weight()
 print(parrot.height, parrot.weight, parrot.species)
+
+
+def voice_animals(arr):
+    for animal in arr:
+        animal.voice()
+
+
+def main():
+    arr = [Dog('rex', 10, 'igar', 2, 0.5),
+           Cat('rex', 10, 'igar', 1, 0.2),
+           Parrot('rex', 10, 'igar', 0.03, 0.5, 'voron')]
+    voice_animals(arr)
+
+
+if __name__ == '__main__':
+    main()
