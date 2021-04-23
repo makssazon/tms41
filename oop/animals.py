@@ -3,6 +3,8 @@
 # Каждый класс содержит конструктор и методы:
 # run, jump, birthday(увеличивает age на 1), sleep.
 # Класс Parrot имеет дополнительный метод fly. Cat - meow, Dog - bark.
+import random
+import string
 
 
 class Pet:
@@ -15,6 +17,12 @@ class Pet:
         self.weight = weight
         self.height = height
         Pet.__counter += 1
+
+    @staticmethod
+    def get_random_name():
+        name = random.choice(string.ascii_uppercase) + \
+               '-' + str(random.randint(10, 100))
+        return name
 
     @classmethod
     def get_counter(cls):
@@ -151,4 +159,5 @@ print()
 
 print(Dog('rex', 10, 'igar', 2, 1) == Dog('rex', 10, 'igar', 2, 1))
 print(Dog('rex', 10, 'igar', 2, 1) != Dog('rex', 10, 'igar', 2, 1))
-print(Pet.get_counter())
+print(Pet.get_counter(), Pet.get_random_name(), Pet.get_random_name(),
+      Pet.get_random_name())
