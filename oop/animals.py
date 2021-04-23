@@ -5,9 +5,10 @@
 # Класс Parrot имеет дополнительный метод fly. Cat - meow, Dog - bark.
 import random
 import string
+from abc import ABC, abstractmethod
 
 
-class Pet:
+class Pet(ABC):
     __counter = 0
 
     def __init__(self, name, age, master, weight, height):
@@ -48,6 +49,7 @@ class Pet:
     def sleep(self):
         print('Sleep!')
 
+    @abstractmethod
     def voice(self):
         pass
 
