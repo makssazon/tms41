@@ -8,14 +8,14 @@ from files.csv_utils import summa, max_price, min_price, minus, read
 
 
 def main():
-    read('test.csv')
-    summa('test.csv')
+    print(read('test.csv'))
+    print(summa('test.csv'))
     print()
-    max_price('test.csv')
-    min_price('test.csv')
-    minus('test.csv', 3)
+    print(max_price('test.csv'))
+    print(min_price('test.csv'))
+    print(minus('test.csv', 3))
     print()
-    read('test.csv')
+    print(read('test.csv'))
 
 
 if __name__ == '__main__':
