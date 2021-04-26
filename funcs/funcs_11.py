@@ -7,7 +7,7 @@ def func(a=0, b=0, c=0):
         return 0, 0
     if D == 0:
         x_1 = (- b + D ** 0.5) / 2 * a
-        return x_1
+        return x_1, x_1
     else:
         x_1 = (- b + D ** 0.5) / 2 * a
         x_2 = (- b - D ** 0.5) / 2 * a
