@@ -10,9 +10,10 @@ def my_decorator(func):
     @wraps(func)
     def wrapper(t):
         start_time = datetime.now()
-        func(t)
+        result = func(t)
         delta_time = datetime.now() - start_time
         print(f'func run for next time : {delta_time}')
+        return result
 
     return wrapper
 

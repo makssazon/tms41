@@ -8,12 +8,11 @@ def my_decorator(func):
     def wrapper(*args, **kwargs):
         args = tuple([arg for arg in args[::-1]])
         kwargs = {key: value for key, value in list(kwargs.items())[::-1]}
-        func(*args, **kwargs)
+        return func(*args, **kwargs)
 
     return wrapper
 
 
-#
 @my_decorator
 def my_func(*args, **kwargs):
     for arg in args:

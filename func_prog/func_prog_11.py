@@ -9,7 +9,7 @@ def my_decorator(func):
     @wraps(func)
     def wrapper(arr):
         arr = list(filter(lambda x: not x % 2, arr))
-        func(arr)
+        return func(arr)
 
     return wrapper
 
