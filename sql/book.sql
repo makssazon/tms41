@@ -27,5 +27,8 @@ ALTER TABLE book ADD COLUMN release_year int;
 select release_year, title, price FROM Book;
 
 select title, release_year,price FROM Book
+WHERE release_year = 2001;
+
+UPDATE Book set price = 10
 WHERE release_year = 2001
 
