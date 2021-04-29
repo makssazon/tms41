@@ -13,6 +13,7 @@ e.execute("""
                 title varchar,
                 pages int,
                 author varchar,
-                price float, release_year int,
+                price float,
+                release_year int,
             );
             """)
