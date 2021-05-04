@@ -13,16 +13,16 @@ class MyTime:
             self.hours = 0
             self.minutes = 0
             self.seconds = 0
-        elif type(args[0]) == str:
+        elif isinstance(args[0], str):
             args = args[0].split()
             self.hours = int(args[0])
             self.minutes = int(args[1])
             self.seconds = int(args[2])
-        elif type(args[0]) == int:
+        elif isinstance(args[0], int):
             self.hours = args[0]
             self.minutes = args[1]
             self.seconds = args[2]
-        elif type(args[0]) == type(self):
+        elif isinstance(args[0], type(self)):
             self.hours = args[0].hours
             self.minutes = args[0].minutes
             self.seconds = args[0].seconds

@@ -1,14 +1,19 @@
-class MyExeption_int_must_be(Exception):
+class MyException(Exception):
+    def __init__(self, message='problem with type of arguments'):
+        super().__init__(message)
+
+
+class MyExeptionIntMustBe(MyException):
     def __init__(self, message='pages and year must be int'):
         super().__init__(message)
 
 
-class MyExeption_str_must_be(Exception):
+class MyExeptionStrMustBe(MyException):
     def __init__(self, message='author must be str'):
         super().__init__(message)
 
 
-class MyExeption_int_or_float_must_be(Exception):
+class MyExeptionIntOrFloatMustBe(MyException):
     def __init__(self, message='price must be int or float'):
         super().__init__(message)
 
@@ -17,11 +22,11 @@ class Book:
     def __init__(self, pages: int, year: int,
                  author: str, price: float or int):
         if not isinstance(pages, int) or not isinstance(year, int):
-            raise MyExeption_int_must_be
+            raise MyExeptionIntMustBe
         if not isinstance(author, str):
-            raise MyExeption_str_must_be
+            raise MyExeptionStrMustBe
         if not isinstance(price, (int, float)):
-            raise MyExeption_int_or_float_must_be
+            raise MyExeptionIntOrFloatMustBe
         self.pages = pages
         self.year = year
         self.author = author
@@ -30,13 +35,9 @@ class Book:
 
 def main():
     try:
-        Book(20, 'df', 'igar', 'hjg')
-    except MyExeption_int_must_be as err:
-        print(f'Problem with int - {err}, object was not create')
-    except MyExeption_str_must_be as err:
-        print(f'Problem with args str- {err}, object was not create')
-    except MyExeption_int_or_float_must_be as err:
-        print(f'Problem with int or float - {err}, object was not create')
+        Book(20, 2020, 'igar', 'jhjb')
+    except MyException as err:
+        print(f'Problem with - {err}, object was not create')
     else:
         print('object was created')
     finally:

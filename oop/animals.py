@@ -85,7 +85,7 @@ class Cat(Pet):
 
     def jump(self, height):
         if height > 2:
-            print('Dogs can not jump so hight')
+            print('Cats can not jump so hight')
         else:
             super().jump(height)
 

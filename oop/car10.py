@@ -21,7 +21,7 @@ class Car:
     def stop(self):
         self.__speed = 0
 
-    def get_speed(self):
+    def print_speed(self):
         print(f'speed = {self.__speed}')
 
     def reverse(self):
@@ -30,4 +30,4 @@ class Car:
 
 car = Car('lada', 'priora', 2011, 120)
 car.speed_plus()
-car.get_speed()
+car.print_speed()
