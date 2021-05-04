@@ -1,4 +1,5 @@
-from library.buisness_logic import create_back, read_back, update_back
+from library.buisness_logic import create_back, read_back,\
+    update_back, delete_back
 
 
 def input_data():
@@ -32,3 +33,8 @@ def update():
     id = int(input("book's id for change: "))
     data = input_data()
     update_back(id, data)
+
+
+def delete():
+    id = int(input("book's id for delete: "))
+    delete_back(id)

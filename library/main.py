@@ -1,4 +1,4 @@
-from library.ui import create, read, read_filter, update
+from library.ui import create, read, read_filter, update, delete
 
 
 def main():
@@ -6,6 +6,8 @@ def main():
     read()
     read_filter()
     update()
+    read()
+    delete()
     read()
 
 

@@ -28,3 +28,8 @@ def update_back(id, data):
     book.price = data['price']
     book.year = data['year']
     session.commit()
+
+
+def delete_back(id):
+    session.query(Book).filter_by(id=id).delete()
+    session.commit()
