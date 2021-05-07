@@ -7,8 +7,8 @@ e = create_engine('sqlite:///libray.db', echo=True)
 session = sessionmaker(bind=e)()
 
 
-def create_back(title, author, price, year):
-    book = Book(title, author, price, year)
+def create_back(data):
+    book = Book(data['title'], data['author'], data['price'], data['year'])
     session.add(book)
     session.commit()
     return book.id
