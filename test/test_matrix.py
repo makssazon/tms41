@@ -7,15 +7,20 @@ from oop.matrix import Matrix
 
 
 class TestMatrix(TestCase):
+    def setUp(self):
+        self.result = [[0 for element in range(5)] for row in range(5)]
+        self.matrix = Matrix()
+
     def test_init(self):
-        result = [[0 for element in range(5)] for row in range(5)]
-        matrix = Matrix()
-        self.assertEqual(matrix._Matrix__n, 5)
-        self.assertEqual(matrix._Matrix__m, 5)
-        self.assertEqual(matrix._Matrix__data, result)
-        self.assertListEqual(matrix._Matrix__data, result)
+        self.assertEqual(self.matrix._Matrix__n, 5)
+        self.assertEqual(self.matrix._Matrix__m, 5)
+        self.assertEqual(self.matrix._Matrix__data, self.result)
+        self.assertListEqual(self.matrix._Matrix__data, self.result)
 
     def test_str(self):
-        result = [[0 for element in range(5)] for row in range(5)]
-        matrix = Matrix()
-        self.assertEqual(matrix.__str__(), str(result))
+        self.assertEqual(self.matrix.__str__(), str(self.result))
+
+
+class TestMatrixDef(TestCase):
+    def test_max_element(self):
+        pass
