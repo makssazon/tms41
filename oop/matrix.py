@@ -34,12 +34,14 @@ class Matrix:
 
 
 def max_element(matrix: Matrix):
-    element = max([max(row) for row in matrix.data])
+    element = max(
+        [max(row) for row in matrix.data])
     return element
 
 
 def min_element(matrix: Matrix):
-    element = min([min(row) for row in matrix.data])
+    element = min(
+        [min(row) for row in matrix.data])
     return element
 
 
