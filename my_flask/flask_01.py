@@ -1,5 +1,4 @@
 # Создать сайт. При запросе на домашнюю страницу отображается текущая дата.
-
 from datetime import datetime
 
 from flask import Flask
@@ -13,7 +12,7 @@ def hello():
 
 
 def time_now():
-    return f'time is {datetime.now()}'
+    return f'{datetime.now().date()}'
 
 
 app.add_url_rule('/', 'time_now', time_now)
