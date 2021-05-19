@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{{ url_for('add_group')}}"> add group in db</a>
+<br>
+<br>
+<table>
+    <tr>
+        <td>id</td>
+        <td>group's name</td>
+    </tr>
+    {% for group in groups%}
+    <tr>
+        <td>{{group.id}}</td>
+        <td>{{group.fullname}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
