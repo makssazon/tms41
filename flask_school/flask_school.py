@@ -42,5 +42,24 @@ def add_group():
         return redirect(url_for('read_group'))
 
 
+@app.route('/update_group', methods=['POST', 'GET'])
+def update():
+    if request.method == 'GET':
+        return render_template('update.html', id=request.args.get('id'))
+    else:
+        group = db.session.query(Group).\
+            filter_by(id=request.args.get('id')).first()
+        group.fullname = request.form['fullname']
+        db.session.commit()
+        return redirect(url_for('read_group'))
+
+
+@app.route('/delete')
+def delete():
+    db.session.query(Group).filter_by(id=request.args.get('id')).delete()
+    db.session.commit()
+    return redirect(url_for('read_group'))
+
+
 if __name__ == '__main__':
     app.run()
