@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+<form action="{{ url_for('read_links')}}" method="post">
+    <p>enter origin link</p>
+    <input type="text" name="origin">
+    <p>enter end of your short link, or we generete it ourselves</p>
+    {{url}}<input type="text" name="short" value="{{next_id}}">
+    <input type="submit">
+    <br><br>
+    <table border="3">
+    <tr><font size="4" color="red" face="Arial">
+        <td><font color="red" face="Arial">id</td>
+        <td><font color="red" face="Arial">origin</td>
+        <td><font color="red" face="Arial">shorten</td>
+        <td><font color="red" face="Arial">date of add</td>
+        <td><font color="red" face="Arial">counter of use</td>
+    </tr>
+    {% for link in data%}
+    <tr>
+        <td>{{link.id}}</td>
+        <td>{{link.origin_link}}</td>
+        <td>{{url}}{{link.short_link}}</td>
+        <td>{{link.date_create}}</td>
+        <td>{{link.counter}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</form>
+</body>
+</html>
