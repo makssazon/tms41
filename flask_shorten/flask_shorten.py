@@ -43,14 +43,17 @@ def read_links():
             return render_template('success.html', result=2,
                                    link=link2, url=request.url)
         else:
-            link = AllLinks(origin_link=request.form['origin'],
-                            short_link=request.form['short'],
-                            date_create=datetime.datetime.now(),
-                            counter=0)
-            db.session.add(link)
-            db.session.commit()
-            return render_template('success.html', result=3,
-                                   link=link, url=request.url)
+            if not request.form['short']:
+                return render_template('success.html', result=5)
+            else:
+                link = AllLinks(origin_link=request.form['origin'],
+                                short_link=request.form['short'],
+                                date_create=datetime.datetime.now(),
+                                counter=0)
+                db.session.add(link)
+                db.session.commit()
+                return render_template('success.html', result=3,
+                                       link=link, url=request.url)
 
 
 @app.route('/<string:end>')

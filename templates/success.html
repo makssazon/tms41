@@ -13,6 +13,8 @@
     <p>origin link {{link.origin_link}} shorten to {{url}}{{link.short_link}}</p>
 {% elif result==4%}
     <p>there is not short adress : {{url}}</p>
+{% elif result==5%}
+    <p>enter end of your short link, or we generete it ourselves</p>
 {% endif%}
 <a href="{{ url_for('read_links')}}">Go Home</a>
 </body>
