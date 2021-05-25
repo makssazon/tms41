@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+
+<form action="{{ url_for('update', id=id, priority=priority)}}" method="post">
+    <p>enter todo text</p>
+    <input type="text" name="text">
+    <p>select priority</p>
+    <input type="radio" name="priority" value="1">1 - red<br>
+    <input type="radio" name="priority" value="2">2 - yellow<br>
+    <input type="radio" name="priority" value="3">3 - green<br>
+    <input type="submit">
+    <br><br>
+</form>
+</body>
+</html>

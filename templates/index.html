@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo</title>
+</head>
+<body>
+
+<form action="{{ url_for('read_todo', priority=priority)}}" method="post">
+    <p>enter todo text</p>
+    <input type="text" name="text">
+    <p>select priority</p>
+    <input type="radio" name="priority" value="1">1 - red<br>
+    <input type="radio" name="priority" value="2">2 - yellow<br>
+    <input type="radio" name="priority" value="3">3 - green<br>
+    <input type="submit">
+    <br><br>
+
+    <a href="{{ url_for('read_todo', priority=1)}}"><font color="red">filter red priority</font></a>
+    <a href="{{ url_for('read_todo', priority=2)}}"><font color="yellow">filter yellow priority</font></a>
+    <a href="{{ url_for('read_todo', priority=3)}}"><font color="green">filter green priority</font></a>
+    <a href="{{ url_for('read_todo')}}">without filter</a>
+
+    <table border="3">
+        <tr><font size="4" color="red" face="Arial"></font>
+        <td><font color="red" face="Arial">text todo</font></td>
+        <td><font color="red" face="Arial">priority</font></td>
+        <td><font color="red" face="Arial">date of create</font></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% for e in data%}
+    <tr>
+
+        <td>{{e.text}}</td>
+        {% if e.priority==1%}
+        <td><font size="4" color="red" face="Arial">{{e.priority}}</font></td>
+        {% elif e.priority==2%}
+        <td><font size="4" color="yellow" face="Arial">{{e.priority}}</font></td>
+        {% else %}
+        <td><font size="4" color="green" face="Arial">{{e.priority}}</font></td>
+        {%endif%}
+        <td>{{e.date_create}}</td>
+        <td><a href="{{ url_for('delete', id=e.id, priority=priority)}}">delete</a></td>
+        <td><a href="{{ url_for('update', id=e.id, priority=priority)}}">update</a></td>
+        <td><a href="{{ url_for('up', display=e.display_priority, priority=priority)}}">up</a></td>
+        <td><a href="{{ url_for('down', display=e.display_priority, priority=priority)}}">down</a></td>
+        {% if e.done==False%}
+            <td><a href="{{ url_for('done', id=e.id, priority=priority)}}">mark as done</a></td>
+        {% else%}
+            <td><a href="{{ url_for('done', id=e.id, priority=priority)}}"><font color="green">DONE</font></a></td>
+        {% endif%}
+    </tr>
+    {% endfor %}
+</table>
+
+</form>
+
+</body>
+</html>
