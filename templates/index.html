@@ -17,7 +17,7 @@
     <br><br>
 
     <a href="{{ url_for('read_todo', priority=1)}}"><font color="red">filter red priority</font></a>
-    <a href="{{ url_for('read_todo', priority=2)}}"><font color="yellow">filter yellow priority</font></a>
+    <a href="{{ url_for('read_todo', priority=2)}}"><font color="gold">filter yellow priority</font></a>
     <a href="{{ url_for('read_todo', priority=3)}}"><font color="green">filter green priority</font></a>
     <a href="{{ url_for('read_todo')}}">without filter</a>
 
@@ -39,7 +39,7 @@
         {% if e.priority==1%}
         <td><font size="4" color="red" face="Arial">{{e.priority}}</font></td>
         {% elif e.priority==2%}
-        <td><font size="4" color="yellow" face="Arial">{{e.priority}}</font></td>
+        <td><font size="4" color="gold" face="Arial">{{e.priority}}</font></td>
         {% else %}
         <td><font size="4" color="green" face="Arial">{{e.priority}}</font></td>
         {%endif%}
