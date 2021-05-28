@@ -2,7 +2,8 @@ from flask import request
 from flask_testing import TestCase
 from _datetime import datetime
 
-from flask_shorten.flask_shorten import app, db
+from flask_shorten.app import db
+from flask_shorten.flask_shorten import app
 
 from flask_shorten.models import AllLinks
 
