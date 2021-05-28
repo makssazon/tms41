@@ -1,34 +1,17 @@
 import datetime
 
-from flask import Flask, request, render_template, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask import request, render_template, redirect
 
-app = Flask(__name__, template_folder='../templates')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flaskshorten.db'
-db = SQLAlchemy(app)
-
-
-class AllLinks(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True)
-    origin_link = db.Column(db.String(100))
-    short_link = db.Column(db.String(100))
-    date_create = db.Column(db.DateTime)
-    counter = db.Column(db.Integer)
-
-
-db.init_app(app)
-db.create_all()
+from flask_shorten.app import app
+from flask_shorten.models import AllLinks
 
 
 @app.route('/', methods=['POST', 'GET'])
 def read_links():
     if request.method == 'GET':
+        data_last = AllLinks.query.order_by(AllLinks.id.desc()).first()
+        next_id = data_last.id + 1 if data_last else 1
         data = AllLinks.query.all()
-        if data:
-            next_id = list(data)[-1].id + 1
-        else:
-            next_id = 1
         return render_template('index.html', data=data,
                                next_id=next_id, url=request.url)
     else:
@@ -50,8 +33,7 @@ def read_links():
                                 short_link=request.form['short'],
                                 date_create=datetime.datetime.now(),
                                 counter=0)
-                db.session.add(link)
-                db.session.commit()
+                link.save()
                 return render_template('success.html', result=3,
                                        link=link, url=request.url)
 
@@ -61,11 +43,7 @@ def go_link(end=None):
     link = AllLinks.query.filter_by(short_link=end).first()
     if link:
         link.counter += 1
-        db.session.commit()
+        link.save()
         return redirect(link.origin_link), 303
     else:
         return render_template('success.html', result=4, url=request.url), 404
-
-
-if __name__ == '__main__':
-    app.run()
