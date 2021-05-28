@@ -10,10 +10,10 @@
     <p>enter todo text</p>
     <input type="text" name="text">
     <p>select priority</p>
-    <input type="radio" name="priority" value="1">1 - red<br>
+    <input type="radio" name="priority" value="1" checked>1 - red<br>
     <input type="radio" name="priority" value="2">2 - yellow<br>
     <input type="radio" name="priority" value="3">3 - green<br>
-    <input type="submit">
+    <input type="submit"></form>
     <br><br>
 
     <a href="{{ url_for('read_todo', priority=1)}}"><font color="red">filter red priority</font></a>
@@ -44,20 +44,26 @@
         <td><font size="4" color="green" face="Arial">{{e.priority}}</font></td>
         {%endif%}
         <td>{{e.date_create}}</td>
-        <td><a href="{{ url_for('delete', id=e.id, priority=priority)}}">delete</a></td>
-        <td><a href="{{ url_for('update', id=e.id, priority=priority)}}">update</a></td>
-        <td><a href="{{ url_for('up', display=e.display_priority, priority=priority)}}">up</a></td>
-        <td><a href="{{ url_for('down', display=e.display_priority, priority=priority)}}">down</a></td>
+        <td><form action="{{ url_for('delete', id=e.id, priority=priority)}}" method="post">
+            <button>delete</button></form></td>
+        <td><form action="{{ url_for('update', id=e.id, text=e.text, priority_old=e.priority, priority=priority)}}" method="get">
+            <button>update</button></form></td>
+        <td><form action="{{ url_for('up', display=e.display_priority, priority=priority)}}" method="post">
+            <button>up</button></form></td>
+       <td><form action="{{ url_for('down', display=e.display_priority, priority=priority)}}" method="post">
+            <button>down</button></form></td>
         {% if e.done==False%}
-            <td><a href="{{ url_for('done', id=e.id, priority=priority)}}">mark as done</a></td>
+            <td><form action="{{ url_for('done', id=e.id, priority=priority)}}" method="post">
+                <button>mark as done</button></form></td>
         {% else%}
-            <td><a href="{{ url_for('done', id=e.id, priority=priority)}}"><font color="green">DONE</font></a></td>
+            <td><form action="{{ url_for('done', id=e.id, priority=priority)}}" method="post">
+                <button><font color="green">DONE</font></button></form></td>
         {% endif%}
     </tr>
     {% endfor %}
 </table>
 
-</form>
+
 
 </body>
 </html>

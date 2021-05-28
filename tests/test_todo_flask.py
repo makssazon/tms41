@@ -1,7 +1,9 @@
 from flask import url_for
 from flask_testing import TestCase
 from _datetime import datetime
-from flask_todo.flask_todo import app, TodoList, db
+
+from flask_todo.flask_todo import app, db
+from flask_todo.models import TodoList
 
 
 class ViewsTestCase(TestCase):
@@ -93,26 +95,27 @@ class ViewsTestCase(TestCase):
         self.assertEqual(data_display, 1)
 
     def test_delete(self):
-        data = {'id': 1}
-        response = self.client.get('/delete', query_string=data)
+        response = self.client.post('/delete/1')
         datatest = TodoList.query.all()
         self.assertStatus(response, 302)
         self.assertRedirects(response, url_for('read_todo'))
         self.assertEqual(len(datatest), 1)
 
     def test_update_if(self):
-        string = {'priority': 1, 'id': 1}
-        response = self.client.get('/update', query_string=string)
+        string = {'priority': 1, 'text': 'text1', 'priority_old': 1}
+        response = self.client.get('/update/1', query_string=string)
         self.assert200(response)
         self.assertTemplateUsed('update.html')
-        self.assertContext('id', str(1))
+        self.assertContext('text', string['text'])
         self.assertContext('priority', str(1))
+        self.assertContext('priority_old', str(1))
 
     def test_update_else(self):
         data = {'text': 'testupdate', 'priority': 3}
-        string = {'priority': 1, 'id': 1}
-        response = self.client.post('/update', data=data, query_string=string)
-        datatest = TodoList.query.all()[0]
+        string = {'priority': 1}
+        response = self.client.post('/update/1',
+                                    data=data, query_string=string)
+        datatest = TodoList.query.first()
         self.assertEqual(datatest.text, 'testupdate')
         self.assertEqual(datatest.priority, 3)
         self.assertStatus(response, 302)

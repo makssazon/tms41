@@ -8,11 +8,24 @@
 
 <form action="{{ url_for('update', id=id, priority=priority)}}" method="post">
     <p>enter todo text</p>
-    <input type="text" name="text">
+    <input type="text" name="text" value="{{text}}">
     <p>select priority</p>
-    <input type="radio" name="priority" value="1">1 - red<br>
+    {% if priority_old=='1'%}
+    <input type="radio" name="priority" value="1" checked>1 - red<br>
     <input type="radio" name="priority" value="2">2 - yellow<br>
     <input type="radio" name="priority" value="3">3 - green<br>
+
+    {% elif priority_old=='2'%}
+    <input type="radio" name="priority" value="1">1 - red<br>
+    <input type="radio" name="priority" value="2" checked>2 - yellow<br>
+    <input type="radio" name="priority" value="3">3 - green<br>
+
+    {% elif priority_old=='3'%}
+    <input type="radio" name="priority" value="1">1 - red<br>
+    <input type="radio" name="priority" value="2">2 - yellow<br>
+    <input type="radio" name="priority" value="3" checked>3 - green<br>
+
+    {% endif%}
     <input type="submit">
     <br><br>
 </form>
