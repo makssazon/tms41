@@ -46,8 +46,8 @@
         <td>{{e.date_create}}</td>
         <td><form action="{{ url_for('delete', id=e.id, priority=priority)}}" method="post">
             <button>delete</button></form></td>
-        <td><form action="{{ url_for('update', id=e.id, text=e.text, priority_old=e.priority, priority=priority)}}" method="get">
-            <button>update</button></form></td>
+        <td><a href="{{ url_for('update', id=e.id, text=e.text, priority_old=e.priority, priority=priority)}}">
+            <button>update</button></a></td>
         <td><form action="{{ url_for('up', display=e.display_priority, priority=priority)}}" method="post">
             <button>up</button></form></td>
        <td><form action="{{ url_for('down', display=e.display_priority, priority=priority)}}" method="post">
