@@ -1,7 +1,8 @@
 from datetime import datetime
 
 from flask_login import UserMixin
-from werkzeug.security import check_password_hash
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from flask_shorten.app import db, app
 
@@ -12,6 +13,10 @@ class AllLinks(db.Model):
     short_link = db.Column(db.String(100))
     date_create = db.Column(db.DateTime)
     counter = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, ForeignKey('user.id'), nullable=True)
+    user = relationship(
+        'User', foreign_keys='AllLinks.user_id', backref='links'
+    )
 
     def save(self):
         db.session.add(self)
@@ -36,9 +41,6 @@ class User(UserMixin, db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-    def check_password(self, password):
-        return check_password_hash(self.hash_password, password)
 
     def __repr__(self):
         return f'{self.id} {self.name}'

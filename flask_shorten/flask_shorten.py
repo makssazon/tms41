@@ -33,10 +33,12 @@ def read_links():
             if not request.form['short']:
                 return render_template('success.html', result=5), 400
             else:
+                user_id = current_user.id if current_user.is_authenticated else 0
                 link = AllLinks(origin_link=request.form['origin'],
                                 short_link=request.form['short'],
                                 date_create=datetime.datetime.now(),
-                                counter=0)
+                                counter=0,
+                                user_id=user_id)
                 link.save()
                 return render_template('success.html', result=3,
                                        link=link, url=request.url)
@@ -65,7 +67,7 @@ def login():
         if user and check_password_hash(user.hash_password, psw):
             login_user(user, remember=form.remember.data)
             return redirect(url_for('profile'))
-
+    flash('error with email or psw', category='error')
     return render_template('login.html', form=form), 400
 
 
@@ -91,7 +93,8 @@ def register():
 @app.route('/profile', methods=['POST', 'GET'])
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user)
+    links = AllLinks.query.filter(AllLinks.user == current_user).all()
+    return render_template('profile.html', user=current_user, links=links)
 
 
 @app.route('/logout')
