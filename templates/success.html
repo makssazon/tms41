@@ -6,11 +6,11 @@
 </head>
 <body>
 {% if result==1%}
-    <p>link {{link.origin_link}} is already shorten to {{url}}{{link.short_link}}'</p>
+<p>link {{link.origin_link}} is already shorten to <a href="{{url}}{{link.short_link}}">{{url}}{{link.short_link}}</a></p>
 {% elif result==2%}
-    <p>short link {{url}}{{link.short_link}} is already used</p>
+<p>short link <a href="{{url}}{{link.short_link}}">{{url}}{{link.short_link}}</a> is already used</p>
 {% elif result==3%}
-    <p>origin link {{link.origin_link}} shorten to {{url}}{{link.short_link}}</p>
+<p>origin link {{link.origin_link}} shorten to <a href="{{url}}{{link.short_link}}">{{url}}{{link.short_link}}</a></p>
 {% elif result==4%}
     <p>there is not short adress : {{url}}</p>
 {% elif result==5%}

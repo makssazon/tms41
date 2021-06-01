@@ -22,19 +22,21 @@
     {{url}}<input type="text" name="short" value="{{next_id}}">
     <input type="submit">
     <br><br>
+    <p>Links that was shorten by Guests</p>
     <table border="3">
     <tr><font size="4" color="red" face="Arial">
-        <td><font color="red" face="Arial">id</td>
-        <td><font color="red" face="Arial">origin</td>
-        <td><font color="red" face="Arial">shorten</td>
-        <td><font color="red" face="Arial">date of add</td>
-        <td><font color="red" face="Arial">counter of use</td>
+        <td><font color="red" face="Arial">id</font></td>
+        <td><font color="red" face="Arial">origin</font></td>
+        <td><font color="red" face="Arial">shorten</font></td>
+        <td><font color="red" face="Arial">date of add</font></td>
+        <td><font color="red" face="Arial">counter of use</font></td>
+        </font>
     </tr>
     {% for link in data%}
     <tr>
         <td>{{link.id}}</td>
         <td>{{link.origin_link}}</td>
-        <td>{{url}}{{link.short_link}}</td>
+        <td><a href="{{url}}{{link.short_link}}">{{url}}{{link.short_link}}</a></td>
         <td>{{link.date_create}}</td>
         <td>{{link.counter}}</td>
     </tr>

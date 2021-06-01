@@ -2,7 +2,7 @@ import datetime
 
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, current_user, logout_user
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_shorten.app import app
@@ -15,12 +15,13 @@ def read_links():
     if request.method == 'GET':
         data_last = AllLinks.query.order_by(AllLinks.id.desc()).first()
         next_id = data_last.id + 1 if data_last else 1
-        data = AllLinks.query.all()
+        data = AllLinks.query.filter_by(user_id=0).all()
         return render_template('index.html', data=data,
                                next_id=next_id, url=request.url, user=current_user)
     else:
-        link1 = AllLinks.query.filter_by(origin_link=request.form['origin']). \
-            first()
+        current_user_id = current_user.id if current_user.is_authenticated else 0
+        link1 = AllLinks.query.filter(and_(AllLinks.user_id == current_user_id,
+                                           AllLinks.origin_link == request.form['origin'])).first()
         link2 = AllLinks.query.filter_by(short_link=request.form['short']). \
             first()
         if link1:
@@ -94,7 +95,7 @@ def register():
 @login_required
 def profile():
     links = AllLinks.query.filter(AllLinks.user == current_user).all()
-    return render_template('profile.html', user=current_user, links=links)
+    return render_template('profile.html', user=current_user, links=links, url=request.url_root)
 
 
 @app.route('/logout')
