@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>update</title>
-</head>
-<body>
+{% extends "main_template.html" %}
+
+{% block body%}
+
 
 <form action="{{ url_for('update', id=id, priority=priority)}}" method="post">
     <p>enter todo text</p>
@@ -29,5 +26,4 @@
     <input type="submit">
     <br><br>
 </form>
-</body>
-</html>
+{% endblock%}

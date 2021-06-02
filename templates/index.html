@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>todo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-</head>
-<body>
+{% extends "main_template.html" %}
+
+{% block body%}
+
 
 <form action="{{ url_for('read_todo', priority=priority)}}" method="post">
     <p>enter todo text</p>
@@ -44,7 +40,7 @@
         {% else %}
         <td><font size="4" color="green" face="Arial">{{e.priority}}</font></td>
         {%endif%}
-        <td>{{e.date_create}}</td>
+        <td>{{e.date_create.strftime("%Y-%m-%d %H:%M")}}</td>
         <td><form action="{{ url_for('delete', id=e.id, priority=priority)}}" method="post">
             <button>delete</button></form></td>
         <td><a href="{{ url_for('update', id=e.id, text=e.text, priority_old=e.priority, priority=priority)}}">
@@ -64,7 +60,4 @@
     {% endfor %}
 </table>
 
-
-
-</body>
-</html>
+{% endblock %}
