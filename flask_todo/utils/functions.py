@@ -7,10 +7,9 @@ from flask_todo.utils.exeptions import NoUserOrPSW
 
 def get_user_by_email_and_check_psw(email, psw) -> User:
     user = User.query.filter_by(email=email).first()
-    check = check_password_hash(user.hash_password, psw)
-    if not check:
-        raise NoUserOrPSW
-    return user
+    if user and check_password_hash(user.hash_password, psw):
+        return user
+    raise NoUserOrPSW
 
 
 def check_user_name_and_email(name, email) -> bool:
