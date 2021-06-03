@@ -2,7 +2,7 @@ from sqlalchemy import or_
 from werkzeug.security import check_password_hash
 
 from flask_todo.models import User, TodoList
-from flask_todo.utils.exeptions import NoUserOrPSW
+from flask_todo.utils.exeptions import NoUserOrPSW, NoLink
 
 
 def get_user_by_email_and_check_psw(email, psw) -> User:
@@ -27,7 +27,41 @@ def get_todo_for_user(user_id, priority):
     return data
 
 
-def find_next_display_priority_for_user(user_id) -> int:
-    data = TodoList.query.filter_by(user_id=user_id).order_by(TodoList.id.desc()).first()
+def find_next_display_priority_for_user() -> int:
+    data = TodoList.query.order_by(TodoList.id.desc()).first()
     display_priority = (data.id + 1) if data else 1
     return display_priority
+
+
+def get_link(display):
+    return TodoList.query.filter_by(display_priority=display).first()
+
+
+def get_up_link(link, priority, current_user):
+    if priority:
+        link_next = TodoList.query.filter(TodoList.user == current_user). \
+            filter_by(priority=priority). \
+            filter(TodoList.display_priority < link.display_priority). \
+            order_by(TodoList.display_priority.desc()).first()
+    else:
+        link_next = TodoList.query.filter(TodoList.user == current_user). \
+            filter(TodoList.display_priority < link.display_priority). \
+            order_by(TodoList.display_priority.desc()).first()
+    if link_next:
+        return link_next
+    raise NoLink
+
+
+def get_down_link(link, priority, current_user):
+    if priority:
+        link_next = TodoList.query.filter(TodoList.user == current_user). \
+            filter_by(priority=priority). \
+            filter(TodoList.display_priority > link.display_priority). \
+            order_by(TodoList.display_priority).first()
+    else:
+        link_next = TodoList.query.filter(TodoList.user == current_user). \
+            filter(TodoList.display_priority > link.display_priority). \
+            order_by(TodoList.display_priority).first()
+    if link_next:
+        return link_next
+    raise NoLink

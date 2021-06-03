@@ -7,9 +7,9 @@ from werkzeug.security import generate_password_hash
 from flask_todo.app import app
 from flask_todo.forms import LoginForm, RegisterForm
 from flask_todo.models import TodoList, User
-from flask_todo.utils.exeptions import NoUserOrPSW
+from flask_todo.utils.exeptions import NoUserOrPSW, NoLink
 from flask_todo.utils.functions import get_user_by_email_and_check_psw, check_user_name_and_email, get_todo_for_user, \
-    find_next_display_priority_for_user
+    find_next_display_priority_for_user, get_up_link, get_link, get_down_link
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -21,7 +21,7 @@ def read_todo():
         return render_template('index.html', data=data,
                                priority=request.args.get('priority'), user=current_user), code
     else:
-        display_priority = find_next_display_priority_for_user(current_user.id)
+        display_priority = find_next_display_priority_for_user()
         link = TodoList(text=request.form['text'],
                         priority=request.form['priority'],
                         display_priority=display_priority,
@@ -66,47 +66,35 @@ def update(id):
 @app.route('/up/<display>', methods=['POST'])
 @login_required
 def up(display):
-    link = TodoList.query.filter_by(display_priority=display).first()
-    if priority := request.args.get('priority'):
-        link_next = TodoList.query.filter_by(priority=priority). \
-            filter(TodoList.display_priority < link.display_priority). \
-            order_by(TodoList.display_priority.desc()).first()
-    else:
-        link_next = TodoList.query. \
-            filter(TodoList.display_priority < link.display_priority). \
-            order_by(TodoList.display_priority.desc()).first()
-    if link_next:
-        link.display_priority, link_next.display_priority = \
-            link_next.display_priority, link.display_priority
-        link.save()
-        link_next.save()
-        return redirect(url_for('read_todo',
-                                priority=priority, user=current_user))
-    return redirect(url_for('read_todo', code=400,
-                            priority=priority, user=current_user))
+    link = get_link(display)
+    try:
+        link_next = get_up_link(link, request.args.get('priority'), current_user)
+    except NoLink:
+        return redirect(url_for('read_todo', code=400,
+                                priority=request.args.get('priority'), user=current_user))
+    link.display_priority, link_next.display_priority = \
+        link_next.display_priority, link.display_priority
+    link.save()
+    link_next.save()
+    return redirect(url_for('read_todo',
+                            priority=request.args.get('priority'), user=current_user))
 
 
 @app.route('/down/<display>', methods=['POST'])
 @login_required
 def down(display):
-    link = TodoList.query.filter_by(display_priority=display).first()
-    if priority := request.args.get('priority'):
-        link_next = TodoList.query.filter_by(priority=priority). \
-            filter(TodoList.display_priority > link.display_priority). \
-            order_by(TodoList.display_priority).first()
-    else:
-        link_next = TodoList.query. \
-            filter(TodoList.display_priority > link.display_priority). \
-            order_by(TodoList.display_priority).first()
-    if link_next:
-        link.display_priority, link_next.display_priority = \
-            link_next.display_priority, link.display_priority
-        link.save()
-        link_next.save()
-        return redirect(url_for('read_todo',
-                                priority=priority, user=current_user))
-    return redirect(url_for('read_todo', code=400,
-                            priority=priority, user=current_user))
+    link = get_link(display)
+    try:
+        link_next = get_down_link(link, request.args.get('priority'), current_user)
+    except NoLink:
+        return redirect(url_for('read_todo', code=400,
+                                priority=request.args.get('priority'), user=current_user))
+    link.display_priority, link_next.display_priority = \
+        link_next.display_priority, link.display_priority
+    link.save()
+    link_next.save()
+    return redirect(url_for('read_todo',
+                            priority=request.args.get('priority'), user=current_user))
 
 
 @app.route('/done/<id>', methods=['POST'])
