@@ -99,7 +99,8 @@ class TestViews(TestCase):
         self.assertRedirects(response, url_for('read_todo', user=mock_current_user))
         self.assertEqual(len(datatest), 1)
 
-    def test_update_if(self):
+    @patch('flask_todo.flask_todo.current_user')
+    def test_update_if(self, mock_current_user):
         string = {'priority': 1, 'text': 'text1', 'priority_old': 1}
         response = self.client.get('/update/1', query_string=string)
         self.assert200(response)
@@ -107,6 +108,18 @@ class TestViews(TestCase):
         self.assertContext('text', string['text'])
         self.assertContext('priority', str(1))
         self.assertContext('priority_old', str(1))
+        self.assertContext('user', mock_current_user)
+
+    @patch('flask_todo.flask_todo.current_user')
+    def test_update_else(self, mock_current_user):
+        data = {'priority': 3, 'text': 'update'}
+        string = {'priority': 1}
+        response = self.client.post('/update/1', data=data, query_string=string)
+        datatest = TodoList.query.filter_by(id=1).first()
+        self.assertStatus(response, 302)
+        self.assertRedirects(response, url_for('read_todo', priority=1, user=mock_current_user))
+        self.assertEqual(datatest.text, 'update')
+        self.assertEqual(datatest.priority, 3)
 
     @patch('flask_todo.flask_todo.current_user')
     @patch('flask_todo.flask_todo.get_link')
@@ -301,6 +314,7 @@ class TestViews(TestCase):
         mock_flash.assert_called_once_with(f'user {mock1.username.data} was created', category='success')
         self.assertRedirects(response, url_for('login', user=mock_current_user))
         mock_create_user.assert_called_once_with(name=mock1.username.data, email=mock1.email.data, hash_password=mock3)
+        mock_create_user().save.assert_called_once()
         mock_register_form.assert_called_once()
         mock_generate_psw.assert_called_once()
         mock_check_user.assert_called_once_with(mock1.username.data, mock1.email.data)
