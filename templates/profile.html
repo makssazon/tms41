@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+</head>
+<body>
+<a href="{{ url_for('read_links')}}">Main page</a>
+<h1>
+  <p>Welcome, {{user.name}}!</p>
+  <p>{{user.name}}</p>
+  <p>{{user.email}}</p>
+  <p>{{user.created_on}}</p>
+</h1>
+            <br><br>
+    <table border="3">
+    <tr><font size="4" color="red" face="Arial">
+        <td><font color="red" face="Arial">id</font></td>
+        <td><font color="red" face="Arial">origin</font></td>
+        <td><font color="red" face="Arial">shorten</font></td>
+        <td><font color="red" face="Arial">date of add</font></td>
+        <td><font color="red" face="Arial">counter of use</font></td>
+    </font></tr>
+    {% for link in links%}
+    <tr>
+        <td>{{link.id}}</td>
+        <td>{{link.origin_link}}</td>
+        <td><a href="{{url}}{{link.short_link}}">{{url}}{{link.short_link}}</a></td>
+        <td>{{link.date_create}}</td>
+        <td>{{link.counter}}</td>
+    </tr>
+
+    {% endfor %}
+    </table>
+
+</body>
+</html>
