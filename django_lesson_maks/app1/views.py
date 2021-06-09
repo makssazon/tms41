@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template import loader
 
 
 def my_time(request):
@@ -33,3 +34,21 @@ def add_user(request):
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(user)
         return HttpResponse(f"user {user[0]} {user[1]} {user[2]} added to file")
+
+
+def form(request):
+    if not os.path.exists('django_05_users.csv'):
+        with open('django_05_users.csv', 'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            fields = ['first name', 'last name', 'age']
+            csvwriter.writerow(fields)
+    if request.method == 'POST':
+        user = [request.POST.get('firstname'), request.POST.get('lastname'), request.POST.get('age')]
+        with open('django_05_users.csv', 'a') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(user)
+        return HttpResponse(f"user {user[0]} {user[1]} {user[2]} added to file")
+    if request.method == 'GET':
+        template = loader.get_template('django_05.html')
+        response = template.render({}, request)
+        return HttpResponse(response)

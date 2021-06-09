@@ -1,0 +1,15 @@
+{% extends "main_template.html" %}
+
+{% block title%}login{% endblock%}
+
+{% block body%}
+<form action="http://localhost:8000/form" method="post">
+    <p>firstname</p>
+    <input type="text" name="firstname"><br>
+    <p>lastname</p>
+    <input type="text" name="lastname"><br>
+    <p>age</p>
+    <input type="number" name="age"><br>
+    <input type="submit">
+</form>
+{% endblock%}
