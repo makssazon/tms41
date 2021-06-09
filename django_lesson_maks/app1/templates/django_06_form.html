@@ -3,7 +3,7 @@
 {% block title%}add user form{% endblock%}
 
 {% block body%}
-<form action="http://localhost:8000/form" method="post">
+<form action="{% url 'full_form'%}" method="post">
     <p>firstname</p>
     <input type="text" name="firstname"><br>
     <p>lastname</p>
