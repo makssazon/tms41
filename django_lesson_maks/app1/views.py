@@ -1,7 +1,9 @@
+import csv
+import os
 from datetime import datetime
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def my_time(request):
@@ -10,3 +12,24 @@ def my_time(request):
 
 def two_pow(request, number):
     return HttpResponse(f'2**{number} = {2 ** number}')
+
+
+def my_word(request, word):
+    if len(word) % 2:
+        return redirect('time')
+    else:
+        return HttpResponse(f'{word[::2]}')
+
+
+def add_user(request):
+    if not os.path.exists('django_04_users.csv'):
+        with open('django_04_users.csv', 'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            fields = ['first name', 'last name', 'age']
+            csvwriter.writerow(fields)
+    if request.method == 'POST':
+        user = [request.POST.get('firstname'), request.POST.get('lastname'), request.POST.get('age')]
+        with open('django_04_users.csv', 'a') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(user)
+        return HttpResponse(f"user {user[0]} {user[1]} {user[2]} added to file")
