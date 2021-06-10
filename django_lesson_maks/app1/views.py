@@ -69,4 +69,5 @@ def full_form(request):
         else:
             return HttpResponse(f'errors in {form.errors}')
     if request.method == 'GET':
-        return render(request, 'django_06_form.html')
+        context = {'form': UserForm()}
+        return render(request, 'django_06_form.html', context)
