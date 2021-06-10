@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 
+from app1.forms import UserForm
+
 
 def my_time(request):
     return HttpResponse(datetime.now())
@@ -56,9 +58,15 @@ def form(request):
 
 def full_form(request):
     if request.method == 'POST':
-        context = {'user': {'firstname': request.POST.get('firstname'),
-                            'lastname': request.POST.get('lastname'),
-                            'age': request.POST.get('age')}}
-        return render(request, 'django_06_display.html', context)
+        form = UserForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            context = {'user': {'firstname': cd.get('firstname'),
+                                'lastname': cd.get('lastname'),
+                                'age': cd.get('age')}}
+            print(context)
+            return render(request, 'django_06_display.html', context)
+        else:
+            return HttpResponse(f'errors in {form.errors}')
     if request.method == 'GET':
         return render(request, 'django_06_form.html')
