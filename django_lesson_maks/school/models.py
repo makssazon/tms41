@@ -20,3 +20,15 @@ class Student(models.Model):
 class Diary(models.Model):
     student = models.OneToOneField(Student, null=True, on_delete=models.CASCADE, related_name='diary')
     avg_score = models.FloatField(max_length=20)
+
+    def __str__(self):
+        return f'{self.student} - {self.avg_score}'
+
+
+class Book(models.Model):
+    name = models.CharField(max_length=50)
+    pages = models.IntegerField()
+    students = models.ManyToManyField(Student, related_name='books')
+
+    def __str__(self):
+        return self.name
