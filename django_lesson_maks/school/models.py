@@ -15,3 +15,8 @@ class Student(models.Model):
 
     def __str__(self):
         return self.firstname
+
+
+class Diary(models.Model):
+    student = models.OneToOneField(Student, null=True, on_delete=models.CASCADE, related_name='diary')
+    avg_score = models.FloatField(max_length=20)
